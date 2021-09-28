@@ -7,6 +7,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__)
 
+
 @auth.route("/login", methods=['GET', 'POST'])
 def login():
     
@@ -73,5 +74,10 @@ def signup():
     
     
     return render_template("sign_up.html", user=current_user)
+
+
+@auth.route("/", methods=["GET", "POST"])
+def mainHome():
+    return render_template("main-home.html", user=current_user)
 
 

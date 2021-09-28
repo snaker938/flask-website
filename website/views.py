@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask.json import jsonify
 from flask_login import login_required, current_user
+from sqlalchemy.sql.functions import user
 from .models import Note
 from website import db
 import json
@@ -8,7 +9,8 @@ import json
 views = Blueprint('views', __name__)
 
 
-@views.route('/', methods=['GET', 'POST'])
+
+@views.route('/notes', methods=['GET', 'POST'])
 @login_required
 def home():
     if request.method == "POST":
@@ -22,7 +24,7 @@ def home():
             db.session.commit()
             flash("Note added!", category="success")
 
-    return render_template("home.html", user=current_user)
+    return render_template("notes.html", user=current_user)
 
 @views.route("/delete-note", methods=["POST"])
 def delete_note():
