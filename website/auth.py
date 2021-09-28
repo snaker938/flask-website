@@ -64,7 +64,7 @@ def signup():
             flash("Your password must contain at least 1 capital letter, one lowercase letter, one digit and it must be bigger than 6 characters long!", category="error")
         else:
             # add user to database
-            new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method="sha256"))
+            new_user = User(email=email, first_name=first_name.capitalize(), password=generate_password_hash(password1, method="sha256"))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
