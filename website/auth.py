@@ -11,7 +11,6 @@ auth = Blueprint('auth', __name__)
 
 @auth.route("/login", methods=['GET', 'POST'])
 def login():
-    
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
@@ -37,8 +36,9 @@ def logout():
 
 @auth.route("/sign-up", methods=['GET', 'POST'])
 def signup():
-
-
+    if not checkForAdmin():
+        createAdmin()
+        return redirect(url_for("views.home"))
     def check_password(password):
         if (any(x.isupper() for x in password) and any(x.islower() for x in password) and any(x.isdigit() for x in password) and (len(password) >= 6)):
             return True
@@ -83,3 +83,31 @@ def mainHome():
 
 
 
+
+def createAdmin():
+
+    def checkForAdmin():
+        adminUser = User.query.filter_by(email="admin@gmail.com").first()
+        if adminUser:
+            return True
+        else:
+            return False
+
+
+    if not checkForAdmin():
+        new_admin_user = User(email="admin@gmail.com", first_name="Admin", password=generate_password_hash("MainAdmin", method="sha256"), admin=True)
+        db.session.add(new_admin_user)            
+        db.session.commit()
+        login_user(new_admin_user, remember=True)
+        print("Admin Account Created")
+        flash("Admin Account created!", category="success")
+    
+
+
+
+def checkForAdmin():
+        adminUser = User.query.filter_by(email="admin@gmail.com").first()
+        if adminUser:
+            return True
+        else:
+            return False
