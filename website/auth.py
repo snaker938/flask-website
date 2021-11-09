@@ -38,7 +38,7 @@ def logout():
 def signup():
     if not checkForAdmin():
         createAdmin()
-        return redirect(url_for("views.home"))
+        return redirect(url_for("views.admin"))
     def check_password(password):
         if (any(x.isupper() for x in password) and any(x.islower() for x in password) and any(x.isdigit() for x in password) and (len(password) >= 6)):
             return True
@@ -79,6 +79,9 @@ def signup():
 
 @auth.route("/", methods=["GET", "POST"])
 def mainHome():
+    if checkForAdmin():
+        if current_user.admin:
+            return render_template("admin.html", user=current_user)
     return render_template("main-home.html", user=current_user)
 
 

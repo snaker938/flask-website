@@ -29,13 +29,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
-          {% if user.is_authenticated %}
+          {% if user.is_authenticated %} {% if not user.admin %}
           <a class="nav-item nav-link" id="notes" href="/notes">Notes</a>
+          {% endif %}
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-<<<<<<< Updated upstream
-          <!-- <a class="nav-item nav-link float-right" id="profile" href="#"
-            >{{ user.first_name }}</a
-          > -->
           <p>
             <button
               class="btn btn-link nav-item nav-link"
@@ -61,11 +58,9 @@
               </div>
             </div>
           </div>
-=======
           <!-- <a class="nav-item nav-link" id="profile" href="/profile"
             >{{ user.first_name }}</a
           > -->
->>>>>>> Stashed changes
           {% else %}
           <a class="nav-item nav-link" id="login" href="/login">Login</a>
           <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>

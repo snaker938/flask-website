@@ -13,6 +13,9 @@ views = Blueprint('views', __name__)
 @views.route('/notes', methods=['GET', 'POST'])
 @login_required
 def home():
+    if current_user.admin:
+        print("This is an admin user!")
+        return render_template("admin.html", user=current_user)
     if request.method == "POST":
         note = request.form.get("note")
 
@@ -37,3 +40,12 @@ def delete_note():
             db.session.commit()
 
     return jsonify({})
+
+
+
+@views.route('/admin', methods=['GET', 'POST'])
+@login_required
+def admin():
+    if current_user.admin:
+        print("This is an admin area going to!")
+        return render_template("admin.html", user=current_user)
