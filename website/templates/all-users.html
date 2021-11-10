@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block title %}Admin Area{% endblock %}{% block
+content %}
+
+<h1 align="center">All Users</h1>
+<ul class="list-group list-group-flush" id="all_users">
+  {% for user in all_users %}
+  <li class="list-group-item">
+    <form action="" method="POST" id="view_form">
+      {{ user.email }} | {{ user.first_name }} | {{user.notes | length}} |
+      <button
+        class="btn btn-link"
+        id="view"
+        name="view"
+        value="{{ user.id }}"
+        onclick=""
+      >
+        View
+      </button>
+    </form>
+  </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

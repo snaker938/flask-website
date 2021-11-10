@@ -81,7 +81,7 @@ def signup():
 def mainHome():
     if checkForAdmin():
         if current_user.admin:
-            return render_template("admin.html", user=current_user)
+            return redirect(url_for("views.admin"))
     return render_template("main-home.html", user=current_user)
 
 
