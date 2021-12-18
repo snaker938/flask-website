@@ -114,3 +114,38 @@ def checkForAdmin():
             return True
         else:
             return False
+        
+        
+        
+        
+@auth.route("/admin", methods=['GET', 'POST'])
+def changeAdmin():
+    print("trying to change")
+    def check_password(password):
+        if (any(x.isupper() for x in password) and any(x.islower() for x in password) and any(x.isdigit() for x in password) and (len(password) >= 6)):
+            return True
+        else:
+            return False
+
+    if request.method == "POST":
+        password1 = request.form.get("password1")
+        password2 = request.form.get("password2")
+
+        user = current_user
+
+        if password1 != password2:
+            flash("Your passwords do not match!", category="error")
+        elif not(check_password(password1)):
+            flash("Your password must contain at least 1 capital letter, one lowercase letter, one digit and it must be bigger than 6 characters long!", category="error")
+        else:
+            # change password
+            user = current_user
+            user.password = password1
+            db.session.add(user)
+            db.session.commit()
+            flash("Admin Password Changed", category="success")
+            return redirect(url_for("views.admin"))
+    
+    
+    
+    return render_template("admin-home.html", user=current_user)

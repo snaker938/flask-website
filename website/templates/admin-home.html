@@ -2,5 +2,50 @@
 content %}
 <h1 align="center">Admin Area</h1>
 {% if defaultAdmin %}
-<p>You have not changed the default password! Do it here:</p>
+<p>
+  You have not changed the default password! Do it here:<button
+    class="btn btn-link"
+    data-target=".bd-change"
+    data-toggle="modal"
+    type="button"
+  >
+    Change
+  </button>
+</p>
+<div
+  aria-hidden="true"
+  aria-labelledby="myLargeModalLabel"
+  class="modal fade bd-change"
+  role="dialog"
+  tabindex="-1"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="POST">
+        <div class="form-group">
+          <label for="password1">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password1"
+            name="password1"
+            placeholder="Enter password"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password2">Confirm Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password2"
+            name="password2"
+            placeholder="Confirm Password"
+          />
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
 {% endif %} {% endblock %}
